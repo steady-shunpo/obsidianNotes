@@ -37,14 +37,14 @@ export default function App() {
     setMessages([...messages, newUserMessage]);
     setInputMessage("");
   
-    const response = await fetch("http://127.0.0.1:8000/chat", {
+    const response = await fetch("http://localhost:3000/chat", {
       method: "POST",
       headers: {
         "Accept": "application/json",
         "content-type": "application/json"
       },
       body: JSON.stringify({
-        message: newUserMessage.content
+        prompt: newUserMessage.content
       })
     })
 
@@ -63,7 +63,7 @@ export default function App() {
       const data = await response.json();
       botResponse = {
         id: messages.length + 2,
-        content: data.reply,
+        content: data.reply.reply,
         sender: "bot",
         timestamp: new Date()
       };
