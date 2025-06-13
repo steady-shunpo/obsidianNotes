@@ -36,6 +36,7 @@ const pythonScriptPath = path.join(__dirname,"../notesAgent/main.py");
 let messages = [];
 
 app.post('/chat', (req, res)=>{
+    console.log("request recieved")
     const prompt = req.body.prompt;
     messages.push(prompt)
     const messagePackage = JSON.stringify(messages);
@@ -54,10 +55,10 @@ app.post('/chat', (req, res)=>{
     });
  
     // Listen for data from standard error (stderr) of the Python process
-    // pythonProcess.stderr.on('data', (data) => {
-    //     errorOutput += data.toString();
-    //     console.error(`Python stderr: ${data.toString().trim()}`); // For debugging
-    // });
+    pythonProcess.stderr.on('data', (data) => {
+        errorOutput += data.toString();
+        console.error(`Python stderr: ${data.toString().trim()}`); // For debugging
+    });
 
     // Listen for the 'close' event, which indicates the Python process has exited
     pythonProcess.on('close', (code) => {

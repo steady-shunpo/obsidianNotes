@@ -1,12 +1,13 @@
 import { useState, useRef, useEffect } from 'react';
 import { Send, Paperclip, Trash2, Moon, User, Bot } from 'lucide-react';
+import ReactMarkdown from 'react-markdown'
 
 
 export default function App() {
   const [messages, setMessages] = useState([
     {
       id: 1,
-      content: "Hello! I'm NightShade AI. How can I assist you today?",
+      content: "Hello! I'm  MemoMate. How can I assist you today?",
       sender: "bot",
       timestamp: new Date()
     }
@@ -110,7 +111,7 @@ export default function App() {
       <header className="bg-gray-800 border-b border-gray-700 p-4 flex items-center justify-between">
         <div className="flex-1"></div>
         <div className="flex-1 flex flex-col items-center justify-center">
-          <h1 className="font-bold text-xl text-purple-400">NightShade AI</h1>
+          <h1 className="font-bold text-s sm:text-xl text-purple-400">MemoMate</h1>
           <div className="flex items-center text-xs text-green-400">
             <div className="w-2 h-2 bg-green-400 rounded-full mr-2"></div>
             Online
@@ -121,11 +122,9 @@ export default function App() {
             className="p-2 rounded-full hover:bg-gray-700 transition"
             onClick={clearChat}
           >
-            <Trash2 size={20} className="text-gray-400" />
+            <Trash2 size={20} className="text-gray-400 cursor-pointer" />
           </button>
-          <button className="p-2 rounded-full hover:bg-gray-700 transition ml-2">
-            <Moon size={20} className="text-purple-400" />
-          </button>
+          
         </div>
       </header>
       
@@ -138,7 +137,7 @@ export default function App() {
               className={`flex ${message.sender === 'user' ? 'justify-end' : 'justify-start'}`}
             >
               <div className={`
-                flex max-w-md rounded-lg p-4 
+                flex max-w-xxl rounded-lg p-4 
                 ${message.sender === 'user' 
                   ? 'bg-purple-900 ml-12' 
                   : 'bg-gray-800 mr-12'
@@ -152,12 +151,12 @@ export default function App() {
                 </div>
                 <div className="flex-1">
                   <div className="mb-1 text-sm">
-                    {message.sender === 'user' ? 'You' : 'NightShade AI'}
+                    {message.sender === 'user' ? 'You' : 'MemoMate'}
                     <span className="ml-2 text-xs text-gray-400">
                       {formatTime(message.timestamp)}
                     </span>
                   </div>
-                  <div className="text-sm whitespace-pre-wrap">{message.content}</div>
+                  <div className="text-sm whitespace-pre-wrap"><ReactMarkdown>{message.content}</ReactMarkdown></div>
                 </div>
               </div>
             </div>
@@ -170,9 +169,7 @@ export default function App() {
       <div className="bg-gray-800 border-t border-gray-700 p-4">
         <div className="max-w-4xl mx-auto">
           <div className="flex items-end bg-gray-700 rounded-lg p-2">
-            <button className="p-2 rounded-full hover:bg-gray-600 transition">
-              <Paperclip size={20} className="text-gray-400" />
-            </button>
+
             <textarea
               className="flex-1 bg-transparent border-0 focus:ring-0 outline-none resize-none mx-2 text-gray-100 placeholder-gray-400 py-2"
               placeholder="Type your message here..."
@@ -197,9 +194,6 @@ export default function App() {
             >
               <Send size={20} />
             </button>
-          </div>
-          <div className="text-xs text-center mt-2 text-gray-400">
-            NightShade AI may produce inaccurate information about people, places, or facts.
           </div>
         </div>
       </div>
